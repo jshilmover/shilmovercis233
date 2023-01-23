@@ -9,7 +9,7 @@ class TvMazeAPI {
 
         $episodesCollection = collect($response);
 
-        $episodes = $episodesCollection->each(function($episode) {
+        $episodes = $episodesCollection->map(function($episode) {
             return new Episode($episode["name"], $episode["image"]["medium"], $episode["season"], $episode["number"], $episode["summary"]);
         });
         return $episodes;
