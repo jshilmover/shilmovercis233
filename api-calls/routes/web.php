@@ -23,13 +23,9 @@ Route::get('/', function () {
 Route::get('/view-episodes', function(Request $request) {
     $showNumber = $request->query('showNumber', 1);
 
-    $data = Episode::where('show_number', '=', $showNumber)->get();
-    $data = $data->map(function ($episode) {
-        return $episode->getAttributes();
-    }); 
-    //dd($data);
+    $episodes = Episode::where('show_number', $showNumber)->get();
 
-    return view('episodes/index', ["episodes"=>$data]);
+    return view('episodes/index', ["episodes"=>$episodes]);
 });
 
 Route::get('/load-episodes', function (Request $request) {
