@@ -19,11 +19,11 @@
                 @foreach ($episodes as $episode)
                     <span class="col-sm-6 col-md-4">
                         <div class="card p-1">
-                            <img src="{{ $episode['image'] }}" class="card-img-top">
-                            <h5 class="card-title">{{ $episode['name'] }}</h5>
+                            <img src="{{ $episode->image }}" class="card-img-top">
+                            <h5 class="card-title">{{ $episode->name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">
-                                {{ 'Season ' . $episode['season'] . ' Episode ' . $episode['episode'] }}</h6>
-                            <p class="card-text">{!! $episode['summary'] !!}</p>
+                                {{ 'Season ' . $episode->season . ' Episode ' . $episode->episode }}</h6>
+                            <p class="card-text">{!! $episode->summary !!}</p>
                         </div>
                     </span>
                 @endforeach

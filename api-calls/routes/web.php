@@ -20,12 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/view-episodes', function(Request $request) {
+Route::get('/view-episodes', function (Request $request) {
     $showNumber = $request->query('showNumber', 1);
 
     $episodes = Episode::where('show_number', $showNumber)->get();
 
-    return view('episodes/index', ["episodes"=>$episodes]);
+    return view('episodes/index', ["episodes" => json_decode($episodes)]);
 });
 
 Route::get('/load-episodes', function (Request $request) {
@@ -33,5 +33,5 @@ Route::get('/load-episodes', function (Request $request) {
 
     $data = TvMazeAPI::fetch($showNumber);
 
-    return view('episodes/index', ["episodes"=>$data]);
+    return view('episodes/index', ["episodes" => json_decode($data)]);
 });
