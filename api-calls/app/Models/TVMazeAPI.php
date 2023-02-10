@@ -15,8 +15,9 @@ class TvMazeAPI
         $episodesCollection = collect($response);
 
         $episodes = $episodesCollection->map(function ($episode) use ($showNumber) {
-            return Episode::firstOrCreate(['name' => $episode["name"], 'image' => $episode["image"]["medium"], 'season' => $episode["season"], 'episode' => $episode["number"], 'summary' => strip_tags($episode["summary"]), 'show_number' => $showNumber]);
+            return Episode::firstOrCreate(['name' => $episode['name'], 'image' => $episode["image"]["medium"], 'season' => $episode["season"], 'episode' => $episode["number"], 'summary' => strip_tags($episode["summary"]), 'show_number' => $showNumber]);
         });
+
         return $episodes;
     }
 }

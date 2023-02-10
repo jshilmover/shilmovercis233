@@ -25,7 +25,7 @@ Route::get('/view-episodes', function (Request $request) {
 
     $episodes = Episode::where('show_number', $showNumber)->get();
 
-    return view('episodes/index', ["episodes" => json_decode($episodes)]);
+    return view('episodes/index', ["episodes" => $episodes]);
 });
 
 Route::get('/load-episodes', function (Request $request) {
@@ -33,5 +33,5 @@ Route::get('/load-episodes', function (Request $request) {
 
     $data = TvMazeAPI::fetch($showNumber);
 
-    return view('episodes/index', ["episodes" => json_decode($data)]);
+    return view('episodes/index', ["episodes" => $data]);
 });
