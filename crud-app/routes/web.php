@@ -18,6 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(ProductController::class)->group(function () {
-    Route::get('/products', 'index');
-});
+Route::resource('products', 'App\Http\Controllers\ProductController');
