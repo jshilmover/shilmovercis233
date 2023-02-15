@@ -19,7 +19,7 @@
                 a
                 Product</button>
             @foreach ($products as $product)
-                @include('products.productCard', ['product' => $product])
+                @include('products.productCard', ['product' => $product, 'expanded' => false])
             @endforeach
         </div>
         {{ $products->links() }}
