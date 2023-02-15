@@ -6,24 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Products</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class='container-fluid'>
+    <div class='container'>
         <div class='row justify-content-center'>
+            <button type="button" class="btn btn-primary col-9 w-100 mt-2"
+                onclick="window.location.href='/products/create';">Add
+                a
+                Product</button>
             @foreach ($products as $product)
-                <div class='card col-sm-12 col-md-3 mx-1 my-1'>
-                    <div class='card-body'>
-                        <img src={{ $product->image }} class='card-img-top'>
-                        <div class='card-title'>Name: <a href={{ strval($product->id) }}>{{ $product->name }}</a></div>
-                        <div class='card-text'>Price: ${{ $product->price }}</div>
-                        <div>Item Number: {{ $product->item_number }}</div>
-                    </div>
-                </div>
+                @include('products.productCard', ['product' => $product])
             @endforeach
         </div>
+        {{ $products->links() }}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

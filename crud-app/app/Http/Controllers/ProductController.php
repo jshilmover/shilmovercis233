@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products/create');
     }
 
     /**
@@ -37,7 +37,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = Product::validateEntry($request);
+
+        $product = new Product;
+        $product->name = $request->productName;
+        $product->price = $request->productPrice;
+        $product->item_number = $request->itemNumber;
+        $product->description = $request->description;
+        $product->image = fake()->imageUrl(640, 480, $request->productName, true, '');
+
+        $product->save();
+        return view('products/index', [
+            'products' => Product::paginate(10)
+        ]);
     }
 
     /**
@@ -61,7 +73,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('products/create', [
+            'product' => Product::where('id', $id)->first()
+        ]);
     }
 
     /**
@@ -73,7 +87,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = Product::validateEntry($request);
+
+        $product = Product::find($id);
+        $product->name = $request->productName;
+        $product->price = $request->productPrice;
+        $product->item_number = $request->itemNumber;
+        $product->description = $request->description;
+
+        $product->save();
+        return redirect()->action([ProductController::class, 'index']);
     }
 
     /**
@@ -84,6 +107,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect()->action([ProductController::class, 'index']);
     }
 }

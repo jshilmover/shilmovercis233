@@ -14,15 +14,7 @@
 
     <div class='container-fluid'>
         <div class="row justify-content-center">
-            <div class="col-sm-6 card">
-                <img src={{ $product->image }} class='card-img-top'>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <h6 class='card-subtitle mb-1'>Item number {{ $product->item_number }}</h6>
-                    <h6 class='card-subtitle'>${{ $product->price }}</h6>
-                    <p class='card-text'>{{ $product->description }}</p>
-                </div>
-            </div>
+            @include('products.productCard', ['product' => $product])
         </div>
 
 
