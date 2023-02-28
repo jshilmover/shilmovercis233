@@ -21,18 +21,30 @@
             </form>
             @if ($expanded)
                 <h5 class="mt-3">Leave a review</h5>
-                <form class="my-2">
-                    <select class="form-select" aria-label="rating-select">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form class="my-2" action="/review/" method="POST">
+                    @csrf
+                    <!-- {{ csrf_field() }} -->
+                    <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
+                    <select class="form-select" aria-label="rating-select" id="rating" name="rating">
                         <option selected>Select a rating</option>
-                        <option value="1" id="rating">1</option>
-                        <option value="2" id="rating">2</option>
-                        <option value="3" id="rating">3</option>
-                        <option value="4" id="rating">4</option>
-                        <option value="5" id="rating">5</option>
+                        <option value="1" {{ old('rating') == 1 ? 'selected' : '' }}>1</option>
+                        <option value="2" {{ old('rating') == 2 ? 'selected' : '' }}>2</option>
+                        <option value="3" {{ old('rating') == 3 ? 'selected' : '' }}>3</option>
+                        <option value="4" {{ old('rating') == 4 ? 'selected' : '' }}>4</option>
+                        <option value="5" {{ old('rating') == 5 ? 'selected' : '' }}>5</option>
                     </select>
                     <div class="my-2">
-                        <label for="review-comment" class="form-label">Comment:</label>
-                        <textarea class="form-control" name="reviewComment" id="reviewComment" rows="3">{{ old('description') ?? $product->reviewComment }}</textarea>
+                        <label for="comment" class="form-label">Comment:</label>
+                        <textarea class="form-control" name="comment" id="comment" rows="3">{{ old('comment') }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

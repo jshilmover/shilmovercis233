@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
+
 
 class Review extends Model
 {
@@ -16,6 +17,17 @@ class Review extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public static
+    function validateEntry(Request $request)
+    {
+        return
+            $request->validate([
+                'product_id' => 'required',
+                'rating' => 'required|numeric',
+                'comment' => 'required'
+            ]);
     }
 
     protected $fillable = ['comment', 'rating', 'product_id'];
