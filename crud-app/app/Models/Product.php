@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -15,7 +14,7 @@ class Product extends Model
     /**
      * Get the product reviews
      */
-    public function reviews(): HasMany
+    public function reviews()
     {
         return $this->hasMany(Review::class);
     }

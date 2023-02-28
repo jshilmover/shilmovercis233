@@ -13,7 +13,7 @@ class Review extends Model
     /**
      * Get the product that owns the review.
      */
-    public function post(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
