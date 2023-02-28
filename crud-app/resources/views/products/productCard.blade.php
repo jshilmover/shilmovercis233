@@ -48,6 +48,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                <h5 class="mb-2">Reviews:</h5>
+                @if (count($product->reviews) == 0)
+                    <div>No reviews yet!</div>
+                @endif
                 <ul class="list-group list-group-flush">
                     @foreach ($product->reviews as $review)
                         <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -60,6 +64,14 @@
                                 {{ $review->comment }}
                             </div>
                         </li>
+                        <form action="/review/{{ $review->id }}" method="POST" class="mb-2">
+                            @csrf
+                            <!-- {{ csrf_field() }} -->
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger w-100"
+                                onclick="return confirm('Really delete?');">Delete
+                                Review</button>
+                        </form>
                     @endforeach
                 </ul>
             @endif
