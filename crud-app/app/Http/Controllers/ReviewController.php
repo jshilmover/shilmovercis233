@@ -22,7 +22,7 @@ class ReviewController extends Controller
         $review->save();
 
         return
-            redirect()->action([ProductController::class, 'show'], ['product' => $review->product_id]);
+            redirect()->route('products.show', ['product' => $review->product_id]);
     }
 
     /**
@@ -37,6 +37,6 @@ class ReviewController extends Controller
         $review->delete();
 
         return
-            redirect()->action([ProductController::class, 'show'], ['product' => $review->product_id]);
+            redirect()->route('products.show', ['product' => $review->product_id]);
     }
 }
