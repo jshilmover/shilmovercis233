@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::resource('products', 'App\Http\Controllers\ProductController');
 Route::resource('review', "App\Http\Controllers\ReviewController");
+Route::resource('users', "App\Http\Controllers\UserController");
