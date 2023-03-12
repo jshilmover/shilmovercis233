@@ -1,7 +1,6 @@
-<x-layout>
-    <x-slot:title>
-        {{ $user->name ? 'Edit a User' : 'Add a User' }}
-    </x-slot:title>
+@extends('dashboard')
+
+@section('content')
     <div class="container mt-4">
 
         @if ($errors->any())
@@ -34,4 +33,4 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-</x-layout>
+@stop

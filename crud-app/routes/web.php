@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('products', 'App\Http\Controllers\ProductController');
-Route::resource('review', "App\Http\Controllers\ReviewController");
-Route::resource('users', "App\Http\Controllers\UserController");
+Route::resource('products', 'App\Http\Controllers\ProductController')->middleware('auth');
+Route::resource('review', "App\Http\Controllers\ReviewController")->middleware('auth');
+Route::resource('users', "App\Http\Controllers\UserController")->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

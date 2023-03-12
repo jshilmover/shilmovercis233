@@ -1,7 +1,6 @@
-<x-layout>
-    <x-slot:title>
-        Users
-    </x-slot:title>
+@extends('dashboard')
+
+@section('content')
     <div class="container">
         <h2>Users</h2>
         <button type="button" class="btn btn-primary my-2" onclick="window.location.href='/users/create';">
@@ -21,8 +20,7 @@
                             @csrf
                             <!-- {{ csrf_field() }} -->
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Really delete?');">Delete
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Really delete?');">Delete
                                 User</button>
                         </form>
                     </span>
@@ -31,4 +29,4 @@
         </ul>
         {{ $users->links() }}
     </div>
-</x-layout>
+@stop

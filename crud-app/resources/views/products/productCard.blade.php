@@ -1,4 +1,4 @@
-<div class='card col-sm-12 col-md-3 mx-1 my-1'>
+<div class='card mx-1 my-1 {{ $expanded ? 'col-12' : 'col-sm-12 col-md-3' }}'>
     <div class='card-body'>
         <img src={{ $product->image }} class='card-img-top'>
         <div class='card-title'>Name: <a href={{ '/products/' . $product->id }}>{{ $product->name }}</a>

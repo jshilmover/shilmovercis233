@@ -1,7 +1,6 @@
-<x-layout>
-    <x-slot:title>
-        Products
-    </x-slot:title>
+@extends('dashboard')
+
+@section('content')
     <div class='container'>
         <div class='row justify-content-center'>
             <button type="button" class="btn btn-primary col-9 w-100 mt-2"
@@ -13,4 +12,5 @@
             @endforeach
         </div>
         {{ $products->links() }}
-</x-layout>
+    </div>
+@stop
