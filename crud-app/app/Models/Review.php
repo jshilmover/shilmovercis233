@@ -35,5 +35,5 @@ class Review extends Model
             ]);
     }
 
-    protected $fillable = ['comment', 'rating', 'product_id'];
+    protected $fillable = ['comment', 'rating', 'product_id', 'user_id'];
 }
