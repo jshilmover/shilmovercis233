@@ -79,7 +79,7 @@ class ProductController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if ($request->user()->cannot('edit', Product::class)) {
+        if ($request->user()->cannot('update', [Product::class, Product::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         return view('products/create', [
@@ -96,7 +96,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->user()->cannot('edit', Product::class)) {
+        if ($request->user()->cannot('update', [Product::class, Product::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         $validated = Product::validateEntry($request);
@@ -119,7 +119,7 @@ class ProductController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($request->user()->cannot('delete', Product::class)) {
+        if ($request->user()->cannot('delete', [Product::class, Product::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         $product = Product::find($id);

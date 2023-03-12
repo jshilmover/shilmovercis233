@@ -66,7 +66,7 @@ class UserController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if ($request->user()->cannot('edit', User::class)) {
+        if ($request->user()->cannot('update', [User::class, User::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         return view("users/create", ['user' => User::where('id', $id)->first()]);
@@ -81,7 +81,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->user()->cannot('edit', User::class)) {
+        if ($request->user()->cannot('update', [User::class, User::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         $validated = User::validateEntry($request);
@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($request->user()->cannot('delete', User::class)) {
+        if ($request->user()->cannot('delete', [User::class, User::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         $user = User::find($id);

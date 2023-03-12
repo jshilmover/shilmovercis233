@@ -31,7 +31,8 @@ class Review extends Model
             $request->validate([
                 'product_id' => 'required',
                 'rating' => 'required|numeric',
-                'comment' => 'required'
+                'comment' => 'required',
+                'user_id' => 'required',
             ]);
     }
 

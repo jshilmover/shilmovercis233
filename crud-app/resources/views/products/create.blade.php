@@ -16,7 +16,7 @@
         <form action="{{ $product ? '/products/' . $product->id : '/products' }}" method="POST">
             @csrf
             <!-- {{ csrf_field() }} -->
-            @if ($product)
+            @if (strlen($product->name) > 0)
                 <input type="hidden" name="_method" value="PUT">
             @endif
             <div class="mb-3">

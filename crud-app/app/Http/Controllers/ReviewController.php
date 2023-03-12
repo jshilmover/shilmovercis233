@@ -33,7 +33,7 @@ class ReviewController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($request->user()->cannot('delete', Review::class)) {
+        if ($request->user()->cannot('delete', [Review::class, Review::find($id)])) {
             return redirect()->route('products.index')->with('error', 'You do not have permission');
         }
         $review = Review::find($id);

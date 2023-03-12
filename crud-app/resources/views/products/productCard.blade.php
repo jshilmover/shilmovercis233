@@ -39,6 +39,7 @@
                     <form class="my-2" action="/review/" method="POST">
                         @csrf
                         <!-- {{ csrf_field() }} -->
+                        <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
                         <input type="hidden" id="product_id" name="product_id" value="{{ $product->id }}">
                         <select class="form-select" aria-label="rating-select" id="rating" name="rating">
                             <option selected>Select a rating</option>
@@ -63,13 +64,16 @@
                     @foreach ($product->reviews as $review)
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold">{{ $review->rating }}
-                                    @for ($i = 0; $i < $review->rating; $i++)
-                                        &#9733;
-                                    @endfor
+                                <div class="fw-bold">
+                                    {{ $review->user->name }}
                                 </div>
                                 {{ $review->comment }}
                             </div>
+                            <span class="badge">{{ $review->rating }}
+                                @for ($i = 0; $i < $review->rating; $i++)
+                                    &#9733;
+                                @endfor
+                            </span>
                         </li>
                         @can('delete', [App\Models\Review::class, $review])
                             <form action="/review/{{ $review->id }}" method="POST" class="mb-2">
