@@ -14,8 +14,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->user()->cannot('viewAny', User::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         return view("users/index", ['users' => User::paginate(5)]);
     }
 
@@ -24,8 +27,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->user()->cannot('create', User::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         return view("users/create", ['user' => new User]);
     }
 
@@ -37,7 +43,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->user()->cannot('create', User::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         $validated = User::validateEntry($request);
 
         $user = new User($validated);
@@ -56,9 +64,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        if ($request->user()->cannot('edit', User::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         return view("users/create", ['user' => User::where('id', $id)->first()]);
     }
 
@@ -71,7 +81,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->user()->cannot('edit', User::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         $validated = User::validateEntry($request);
         $user = User::find($id);
 
@@ -90,8 +102,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        if ($request->user()->cannot('delete', User::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         $user = User::find($id);
         $reviews = $user->reviews;
 

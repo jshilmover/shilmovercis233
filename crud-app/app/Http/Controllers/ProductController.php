@@ -24,8 +24,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->user()->cannot('create', Product::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         return view('products/create', ['product' => new Product]);
     }
 
@@ -37,6 +40,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', Product::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         $validated = Product::validateEntry($request);
 
         $product = new Product;
@@ -71,8 +77,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if ($request->user()->cannot('edit', Product::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         return view('products/create', [
             'product' => Product::where('id', $id)->first()
         ]);
@@ -87,6 +96,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->user()->cannot('edit', Product::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         $validated = Product::validateEntry($request);
 
         $product = Product::find($id);
@@ -105,8 +117,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        if ($request->user()->cannot('delete', Product::class)) {
+            return redirect()->route('products.index')->with('error', 'You do not have permission');
+        }
         $product = Product::find($id);
         $product->delete();
 
