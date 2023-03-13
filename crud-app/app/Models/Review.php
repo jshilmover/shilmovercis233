@@ -19,6 +19,11 @@ class Review extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static
     function validateEntry(Request $request)
     {
@@ -26,9 +31,10 @@ class Review extends Model
             $request->validate([
                 'product_id' => 'required',
                 'rating' => 'required|numeric',
-                'comment' => 'required'
+                'comment' => 'required',
+                'user_id' => 'required',
             ]);
     }
 
-    protected $fillable = ['comment', 'rating', 'product_id'];
+    protected $fillable = ['comment', 'rating', 'product_id', 'user_id'];
 }
